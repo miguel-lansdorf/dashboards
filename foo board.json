@@ -1,0 +1,158 @@
+{
+  "filters": [],
+  "views": [
+    {
+      "id": "Main",
+      "name": "Main",
+      "type": "div",
+      "config": {},
+      "panels": {
+        "list": [
+          {
+            "id": "mantine-bocqjsfjk",
+            "title": "third",
+            "description": "<p>ddsfsdfdsdsfsdfsdfsf</p>",
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "w": 6,
+              "h": 37,
+              "moved": false,
+              "static": false
+            },
+            "queryID": "count-commit-by-name",
+            "viz": {
+              "type": "table",
+              "conf": {
+                "config": {
+                  "columns": [
+                    {
+                      "label": "commit count",
+                      "value_type": "number",
+                      "value_field": "commit_count",
+                      "cellBackgroundColor": {
+                        "steps": [
+                          {
+                            "to": 0,
+                            "from": 0
+                          },
+                          {
+                            "to": 50,
+                            "from": 100
+                          },
+                          {
+                            "to": 100,
+                            "from": 3000
+                          }
+                        ],
+                        "interpolation": "${diverging}.{red-green}"
+                      }
+                    },
+                    {
+                      "label": "author",
+                      "value_type": "string",
+                      "value_field": "author_name"
+                    }
+                  ],
+                  "striped": false,
+                  "fontSize": "1rem",
+                  "id_field": "author_name",
+                  "use_raw_columns": false,
+                  "verticalSpacing": "1em",
+                  "highlightOnHover": false,
+                  "horizontalSpacing": "1em"
+                },
+                "version": 1,
+                "__TRIGGERS": {
+                  "mantine-9ddyjszzm": {
+                    "id": "mantine-9ddyjszzm",
+                    "data": {
+                      "config": {
+                        "column": 0
+                      }
+                    },
+                    "schemaRef": "builtin:table:click-cell-content"
+                  }
+                },
+                "__OPERATIONS": {
+                  "mantine-hj42nxbnz": {
+                    "id": "mantine-hj42nxbnz",
+                    "data": {
+                      "config": {
+                        "urlTemplate": "https://www.google.com/search?q=${row_data.author_name}",
+                        "openInNewTab": true
+                      }
+                    },
+                    "schemaRef": "builtin:op:open-link"
+                  }
+                },
+                "__INTERACTIONS": {
+                  "[mantine-9ddyjszzm]:[mantine-hj42nxbnz]": {
+                    "id": "[mantine-9ddyjszzm]:[mantine-hj42nxbnz]",
+                    "triggerRef": "mantine-9ddyjszzm",
+                    "operationRef": "mantine-hj42nxbnz"
+                  }
+                }
+              }
+            },
+            "style": {
+              "border": {
+                "enabled": false
+              }
+            }
+          },
+          {
+            "id": "mantine-2jvjw45se",
+            "title": "hello world 2333",
+            "description": "<p>emmmmm</p>",
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "w": 4,
+              "h": 17,
+              "moved": false,
+              "static": false
+            },
+            "queryID": "count-commit-by-name",
+            "viz": {
+              "type": "richText",
+              "conf": {
+                "config": {
+                  "content": ""
+                },
+                "version": 1
+              }
+            },
+            "style": {
+              "border": {
+                "enabled": false
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "definition": {
+    "sqlSnippets": [],
+    "queries": [
+      {
+        "id": "total_accounts",
+        "type": "postgresql",
+        "key": "vdev",
+        "sql": "select count(1) as account_count\nfrom account;\n",
+        "state": "loading",
+        "data": []
+      },
+      {
+        "id": "count-commit-by-name",
+        "type": "mysql",
+        "key": "starrocks lake",
+        "sql": "select count(1) as commit_count, author_name\nfrom lake.commits\nwhere author_name <> 'github-actions[bot]'\ngroup by author_name\norder by commit_count desc\n",
+        "state": "loading",
+        "data": []
+      }
+    ],
+    "mock_context": {}
+  }
+}
